@@ -1,28 +1,26 @@
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.id = crypto.randomUUID();
-    this.info = function () {
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.id = crypto.randomUUID();
+    }
+
+    info() {
         return `${this.title} by ${this.author}, ${this.pages} pages, ${this.read ? "read" : "not read yet"}`;
-    };
+    }
+
+    toggleRead() {
+        this.read = !this.read;
+    }
 }
 function addBookToLibrary(title, author, pages, read) {
     const book = new Book(title, author, pages, read);
     myLibrary.push(book);
 }
-
-addBookToLibrary("1984", "George Orwell", 328, true);
-addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 295, false);
-
-console.log(myLibrary);
-
-Book.prototype.toggleRead = function () {
-    this.read = !this.read;
-};
 
 function displayBooks() {
     const container = document.getElementById("library-container");
@@ -79,7 +77,7 @@ function displayBooks() {
     });
 }
 const newBookBtn = document.getElementById("new-book-btn");
-const newBookForm = document.getElementById("new-book-form");
+const newBookForm = document.getElementById("book-form");
 
 newBookBtn.addEventListener("click", () => {
     if (newBookForm.style.display === "none") {
